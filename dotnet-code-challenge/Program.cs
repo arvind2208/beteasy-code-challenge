@@ -1,4 +1,5 @@
 ﻿using dotnet_code_challenge.AdapterProviderFactory;
+using dotnet_code_challenge.Helpers;
 using dotnet_code_challenge.Models;
 using dotnet_code_challenge.Services;
 using System;
@@ -16,13 +17,15 @@ namespace dotnet_code_challenge
             //TODO: make basePath configurable
             string basePath = @"C:\interview\beteasy-code-challenge\dotnet-code-challenge\FeedData\";
             var dataSet = new DataSet();
+            var fileSystem = new FileSystem();
+
             if (Directory.Exists(basePath))
             {
                 foreach (string file in Directory.GetFiles(basePath))
                 {
-                    var adapter = (new FeedAdapterProviderFactory()).GetFeedAdapter(file);
-                    adapter.FilePath = file;
-                    adapter.Fill(dataSet);
+                    var adapter = (new FeedAdapterProviderFactory(fileSystem)).GetFeedAdapter(file);
+
+                    adapter.Fill(file, dataSet);
                 }
             }
 

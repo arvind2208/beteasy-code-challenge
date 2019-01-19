@@ -4,7 +4,6 @@ namespace dotnet_code_challenge.Adapters
 {
     public interface IFeedAdapter
     {
-        string FilePath { get; set; }
-        void Fill(DataSet dataSet);
+        void Fill(string filePath, DataSet dataSet);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using dotnet_code_challenge.AdapterProviderFactory;
 using dotnet_code_challenge.Helpers;
 using dotnet_code_challenge.Models;
+using dotnet_code_challenge.Renderers;
 using dotnet_code_challenge.Repositories;
 using dotnet_code_challenge.Services;
 using System;
@@ -36,15 +37,8 @@ namespace dotnet_code_challenge
             var horses = (new GetHorsesByPriceService(horseRepository)).Invoke();
             //Print the results
 
-            Console.WriteLine("Horses by Price");
-            Console.WriteLine(string.Empty);
-            Console.WriteLine($"{"Horse".PadRight(20)} Price");
-            Console.WriteLine("============================");
+            (new HorsesByPriceRenderer(new ConsoleWriter())).Render(horses);
 
-            foreach (var horse in horses)
-            {
-                Console.WriteLine($"{horse.Name.Trim().PadRight(20)} {horse.Price:C}");
-            }
             Console.WriteLine("Results printed successfully");
         }
     }
